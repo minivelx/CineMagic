@@ -6,24 +6,30 @@ package my.test.myapplication;
 
 public class Pelicula {
 
-
     public Pelicula() {
         nombre = null;
         duracion=0;
         puntuacion=0;
         sinopsis=null;
-
         genero=null;
         censura=0;
         director=null;
         reparto = null;
+        formato = 2;
+
 
     }
 
-    public Pelicula(String nombre, int puntuacion, String director) {
+    public Pelicula(String nombre, int puntuacion,int censura,int duracion, String director, String genero, String reparto, String sinopsis, int formato) {
         this.nombre = nombre;
         this.puntuacion = puntuacion;
         this.director = director;
+        this.duracion = duracion;
+        this.censura = censura;
+        this.genero = genero;
+        this.sinopsis = sinopsis;
+        this.reparto = reparto;
+        this.formato = formato;
     }
 
     private String nombre;
@@ -32,6 +38,7 @@ public class Pelicula {
     private String sinopsis;
     private String genero;
     private int censura;
+    private int formato;
     private String director;
     private String reparto;
 
@@ -68,6 +75,10 @@ public class Pelicula {
         return reparto;
     }
 
+    public int getFormato() {
+        return formato;
+    }
+
     //setters
 
     public void setNombre(String nombre) {
@@ -100,5 +111,9 @@ public class Pelicula {
 
     public void setReparto(String reparto) {
         this.reparto = reparto;
+    }
+
+    public void setFormato(int formato) {
+        this.formato = formato;
     }
 }

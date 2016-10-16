@@ -47,7 +47,7 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
 
         nombre.setText(String.valueOf(pelicula.getNombre()));
         director.setText(String.valueOf(pelicula.getDirector()));
-        estrellas.setRating(pelicula.getPuntuacion());
+        estrellas.setProgress(pelicula.getPuntuacion()/10);
         photo.setImageResource(image_src[position]);
 
         linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -61,12 +61,16 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
                 String msg = "prueba";
                 Pelicula pelicula = getItem(position);
                 Intent intent = new Intent(context, DetailActivity.class);
+
+                intent.putExtra("identificador", position);
+
                 intent.putExtra("name", pelicula.getNombre());
+                intent.putExtra("format", pelicula.getFormato());
                 intent.putExtra("duracion", pelicula.getDuracion());
-                //intent.putExtra("censura", pelicula.getCensura());
-                //intent.putExtra("genero", pelicula.getGenero());
-                //intent.putExtra("reparto", pelicula.getReparto());
-                //intent.putExtra("sinopsis", pelicula.getSinopsis());
+                intent.putExtra("tipo", pelicula.getGenero());
+                intent.putExtra("censura", pelicula.getCensura());
+                intent.putExtra("reparto", pelicula.getReparto());
+                intent.putExtra("sinopsis", pelicula.getSinopsis());
                 context.startActivity(intent);
 
 

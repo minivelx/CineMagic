@@ -6,22 +6,17 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.MediaController;
+import android.widget.TextView;
 import android.widget.VideoView;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private String nombre;
-    String  duracion;
-    private int puntuacion;
-    private String sinopsis;
-    private String genero;
-    private int censura;
-    private String director;
-    private String reparto;
+
+    private int[] video_src = {R.raw.suicida, R.raw.transformers, R.raw.valiente, R.raw.furioso, R.raw.conjuro, R.raw.focus, R.raw.mentes, R.raw.terminator};
+
 
     VideoView videoView;
     MediaController mediaController;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,17 +25,42 @@ public class DetailActivity extends AppCompatActivity {
 
         videoView  = (VideoView) findViewById(R.id.videoview);
         mediaController = new MediaController(this);
-        videoplay();
 
-        nombre = getIntent().getStringExtra("name");
-        duracion = getIntent().getStringExtra("duracion");
-        //TextView vista = (TextView) findViewById(R.id.vista);
-        //vista.setText(mensaje);
+        //se reciben los datos del main_activity
+        Bundle datos = this.getIntent().getExtras();
+
+        //se setea la vista con los datos recibidos
+        TextView titulo = (TextView) findViewById(R.id.titulo);
+        titulo.setText(datos.getString("name"));
+
+        TextView formato = (TextView) findViewById(R.id.formato);
+        formato.setText(Integer.toString(datos.getInt("format"))+"D");
+
+        TextView duracion = (TextView) findViewById(R.id.duracion);
+        duracion.setText(Integer.toString(datos.getInt("duracion"))+" min");
+
+        TextView genero = (TextView) findViewById(R.id.genero);
+        genero.setText(datos.getString("tipo"));
+
+        TextView censura = (TextView) findViewById(R.id.edad);
+        censura.setText(Integer.toString(datos.getInt("censura"))+" años");
+
+        TextView reparto = (TextView) findViewById(R.id.protagonistas);
+        reparto.setText(datos.getString("reparto"));
+
+        TextView sinopsis = (TextView) findViewById(R.id.sinopsis);
+        sinopsis.setText(datos.getString("sinopsis"));
+
+        videoplay(datos.getInt("identificador"));
+
+
     }
 
-    public void videoplay(){
+    public void videoplay(int id){
+
         String videopath = "android.resource://my.test.myapplication/"+ R.raw.furioso;
-        Uri uri = Uri.parse(videopath);
+
+        Uri uri = Uri.parse("android.resource://my.test.myapplication/"+video_src[id]);
         videoView.setVideoURI(uri);
         videoView.setMediaController(mediaController);
         mediaController.setAnchorView(findViewById(R.id.videoview));
