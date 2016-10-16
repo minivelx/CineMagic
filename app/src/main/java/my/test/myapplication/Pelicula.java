@@ -11,10 +11,13 @@ public class Pelicula {
         nombre = null;
         duracion=0;
         puntuacion=0;
-        sipnosis=null;
+        sinopsis=null;
+
         genero=null;
         censura=0;
         director=null;
+        reparto = null;
+
     }
 
     public Pelicula(String nombre, int puntuacion, String director) {
@@ -26,11 +29,13 @@ public class Pelicula {
     private String nombre;
     private int duracion;
     private int puntuacion;
-    private String sipnosis;
+    private String sinopsis;
     private String genero;
     private int censura;
     private String director;
+    private String reparto;
 
+    //getters
     public String getNombre() {
         return nombre;
     }
@@ -43,8 +48,8 @@ public class Pelicula {
         return puntuacion;
     }
 
-    public String getSipnosis() {
-        return sipnosis;
+    public String getSinopsis() {
+        return sinopsis;
     }
 
     public String getGenero() {
@@ -59,6 +64,12 @@ public class Pelicula {
         return director;
     }
 
+    public String getReparto() {
+        return reparto;
+    }
+
+    //setters
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -71,8 +82,8 @@ public class Pelicula {
         this.puntuacion = puntuacion;
     }
 
-    public void setSipnosis(String sipnosis) {
-        this.sipnosis = sipnosis;
+    public void setSinopsis(String sinopsis) {
+        this.sinopsis = sinopsis;
     }
 
     public void setGenero(String genero) {
@@ -85,5 +96,9 @@ public class Pelicula {
 
     public void setDirector(String director) {
         this.director = director;
+    }
+
+    public void setReparto(String reparto) {
+        this.reparto = reparto;
     }
 }

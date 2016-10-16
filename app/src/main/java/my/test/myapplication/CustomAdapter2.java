@@ -1,6 +1,7 @@
 package my.test.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,8 +55,20 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
             public void onClick(View v) {
                 // Do your stuff here
 
-                    Toast toast = Toast.makeText(context, "Peli "+position, Toast.LENGTH_LONG);
-                    toast.show();
+                Toast toast = Toast.makeText(context, "Peli "+position, Toast.LENGTH_LONG);
+                toast.show();
+                //Cambiamos de actividad para ver detalles de la pelicula seleccionada
+                String msg = "prueba";
+                Pelicula pelicula = getItem(position);
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("name", pelicula.getNombre());
+                intent.putExtra("duracion", pelicula.getDuracion());
+                //intent.putExtra("censura", pelicula.getCensura());
+                //intent.putExtra("genero", pelicula.getGenero());
+                //intent.putExtra("reparto", pelicula.getReparto());
+                //intent.putExtra("sinopsis", pelicula.getSinopsis());
+                context.startActivity(intent);
+
 
             }
         });
