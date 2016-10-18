@@ -1,17 +1,19 @@
 package my.test.myapplication;
 
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 public class DetailActivity extends AppCompatActivity {
 
-
+    static int peli;
     private int[] video_src = {R.raw.suicida, R.raw.transformers, R.raw.valiente, R.raw.furioso, R.raw.conjuro, R.raw.focus, R.raw.mentes, R.raw.terminator};
 
 
@@ -51,7 +53,8 @@ public class DetailActivity extends AppCompatActivity {
         TextView sinopsis = (TextView) findViewById(R.id.sinopsis);
         sinopsis.setText(datos.getString("sinopsis"));
 
-        videoplay(datos.getInt("identificador"));
+        peli=datos.getInt("identificador");
+        videoplay(peli);
 
 
     }
@@ -67,5 +70,10 @@ public class DetailActivity extends AppCompatActivity {
 
         videoView.start();
 
+    }
+
+    public void reservar(View view) {
+        DialogFragment dialog = new Dialogo();
+        dialog.show(getSupportFragmentManager(), "dialog");
     }
 }

@@ -22,9 +22,12 @@ import java.util.List;
 
 public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
 
+    static int id;
+
     private int[] image_src = {R.drawable.peli1,R.drawable.peli2,R.drawable.peli3,R.drawable.peli4, R.drawable.peli5};
     Context context;
     LinearLayout linearLayout;
+    TextView estado; //resarvado o no
 
     public CustomAdapter2(Context context,int textViewResourceId, List<Pelicula> objects) {
         super(context, textViewResourceId, objects);
@@ -40,6 +43,7 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
         TextView director = (TextView) view.findViewById(R.id.director);
         RatingBar estrellas = (RatingBar) view.findViewById(R.id.estrellas);
         ImageView photo = (ImageView) view.findViewById(R.id.poster);
+        estado = (TextView) view.findViewById(R.id.estado);
         linearLayout = (LinearLayout) view.findViewById(R.id.detalles);
 
         Pelicula pelicula = getItem(position);
@@ -63,7 +67,7 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
                 Intent intent = new Intent(context, DetailActivity.class);
 
                 intent.putExtra("identificador", position);
-
+                id = position;
                 intent.putExtra("name", pelicula.getNombre());
                 intent.putExtra("format", pelicula.getFormato());
                 intent.putExtra("duracion", pelicula.getDuracion());
@@ -73,10 +77,8 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
                 intent.putExtra("sinopsis", pelicula.getSinopsis());
                 context.startActivity(intent);
 
-
             }
         });
-
 
 
         return view;
