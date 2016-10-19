@@ -16,8 +16,7 @@ public class Pelicula {
         director=null;
         reparto = null;
         formato = 2;
-
-
+       estado = false;
     }
 
     public Pelicula(String nombre, int puntuacion,int censura,int duracion, String director, String genero, String reparto, String sinopsis, int formato) {
@@ -41,6 +40,7 @@ public class Pelicula {
     private int formato;
     private String director;
     private String reparto;
+    private boolean estado;
 
     //getters
     public String getNombre() {
@@ -79,6 +79,10 @@ public class Pelicula {
         return formato;
     }
 
+    public boolean getEstado() {
+        return estado;
+    }
+
     //setters
 
     public void setNombre(String nombre) {
@@ -115,5 +119,9 @@ public class Pelicula {
 
     public void setFormato(int formato) {
         this.formato = formato;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

@@ -1,6 +1,7 @@
 package my.test.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -90,6 +91,11 @@ public class MainActivity extends AppCompatActivity {
             return fragments[position];
         }
 
+    }
 
+    public void actualizar(){
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 }

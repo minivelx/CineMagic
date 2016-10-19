@@ -1,5 +1,6 @@
 package my.test.myapplication;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -10,6 +11,20 @@ import android.util.Log;
 public class Dialogo extends DialogFragment {
 
     int []num_funciones = {2,3,1,4,2,2,2,3};
+
+    //Interfaces
+    public interface OnSetTitleListener{
+        void setTitle(String title);
+    }
+
+    public interface OnSimpleDialogListener {
+        void onPossitiveButtonClick();// Eventos Botón ok
+        void onNegativeButtonClick();// Eventos Botón cancel
+    }
+    // Interfaz de comunicación
+    OnSetTitleListener listener;
+    // Interfaz de comunicación 2
+    OnSimpleDialogListener listener2;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -66,11 +81,16 @@ public class Dialogo extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+
         builder.setTitle("Funciones de Hoy")
                 .setSingleChoiceItems(items, -1,
                         new DialogInterface.OnClickListener() {
+                            @Override
                             public void onClick(DialogInterface dialog, int item) {
+
                                 Log.i("Dialogos", "Opción elegida: " + items[item]);
+                                listener.setTitle((String) items[item]);
+                                final int a = item;
                             }
                         })
 
@@ -78,6 +98,7 @@ public class Dialogo extends DialogFragment {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
+                                listener2.onPossitiveButtonClick();
 
                             }
                         })
@@ -85,10 +106,36 @@ public class Dialogo extends DialogFragment {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
-
+                                listener2.onNegativeButtonClick();
                             }
                         });
 
         return builder.create();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try {
+            listener = (OnSetTitleListener) activity;
+
+        } catch (ClassCastException e) {
+            throw new ClassCastException(
+                    activity.toString() +
+                            " no implementó OnSetTitleListener");
+
+        }
+
+        try {
+            listener2 = (OnSimpleDialogListener) activity;
+
+        } catch (ClassCastException e) {
+            throw new ClassCastException(
+                    activity.toString() +
+                            " no implementó OnSimpleDialogListener");
+
+        }
+
     }
 }

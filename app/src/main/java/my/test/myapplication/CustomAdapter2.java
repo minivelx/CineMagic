@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -27,17 +26,22 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
     private int[] image_src = {R.drawable.peli1,R.drawable.peli2,R.drawable.peli3,R.drawable.peli4, R.drawable.peli5};
     Context context;
     LinearLayout linearLayout;
-    TextView estado; //resarvado o no
+    TextView estado;
+    Pelicula pelicula;
+    View view;
+    List<Pelicula> peliculas;
 
     public CustomAdapter2(Context context,int textViewResourceId, List<Pelicula> objects) {
         super(context, textViewResourceId, objects);
         this.context = context;
+        peliculas = objects;
     }
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         //View view = super.getView(position, convertView, parent);
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.item_custom, null);
+        view = LayoutInflater.from(getContext()).inflate(R.layout.item_custom, null);
 
         TextView nombre = (TextView) view.findViewById(R.id.titulo);
         TextView director = (TextView) view.findViewById(R.id.director);
@@ -46,7 +50,7 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
         estado = (TextView) view.findViewById(R.id.estado);
         linearLayout = (LinearLayout) view.findViewById(R.id.detalles);
 
-        Pelicula pelicula = getItem(position);
+        pelicula = getItem(position);
         nombre.setText(pelicula.getNombre());
 
         nombre.setText(String.valueOf(pelicula.getNombre()));
@@ -54,16 +58,14 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
         estrellas.setProgress(pelicula.getPuntuacion()/10);
         photo.setImageResource(image_src[position]);
 
+        chequear_estado(position);
+
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Do your stuff here
 
-                Toast toast = Toast.makeText(context, "Peli "+position, Toast.LENGTH_LONG);
-                toast.show();
                 //Cambiamos de actividad para ver detalles de la pelicula seleccionada
-                String msg = "prueba";
-                Pelicula pelicula = getItem(position);
                 Intent intent = new Intent(context, DetailActivity.class);
 
                 intent.putExtra("identificador", position);
@@ -75,14 +77,27 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
                 intent.putExtra("censura", pelicula.getCensura());
                 intent.putExtra("reparto", pelicula.getReparto());
                 intent.putExtra("sinopsis", pelicula.getSinopsis());
+                peliculas.get(position).setEstado(true);//!!!!!!!!!!!!!BORRAR!!!!!!!!!!!!!!!!!
+                chequear_estado(position);
                 context.startActivity(intent);
 
             }
         });
 
-
         return view;
     }
 
+    public void chequear_estado(int position){
+
+        //actualizamos la vista
+        this.notifyDataSetChanged();
+
+        if(pelicula.getEstado()==true){
+            Log.i("MainActivity", "yeahh!!!!!!!!");
+            estado.setText("RESERVADO!");
+        }else{
+            estado.setText("SIN RESERVA");
+        }
+    }
 
 }

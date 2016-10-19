@@ -11,9 +11,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by filip on 8/21/2015.
- */
+
 public class Fragment1 extends Fragment {
 
     ListView lista;
@@ -37,6 +35,7 @@ public class Fragment1 extends Fragment {
         peliculas = initPeliculasList();
         adapter2 = new CustomAdapter2(getActivity(), android.R.id.list,peliculas);
         lista.setAdapter(adapter2);
+
     }
 
     private List<Pelicula> initPeliculasList() {

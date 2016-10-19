@@ -9,11 +9,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements
+        Dialogo.OnSetTitleListener,
+        Dialogo.OnSimpleDialogListener {
 
     static int peli;
+    String hora_reserva;
+    boolean confirmo_reserva;
+
+    public DetailActivity() {
+        this.hora_reserva = null;
+        confirmo_reserva = false;
+    }
+
     private int[] video_src = {R.raw.suicida, R.raw.transformers, R.raw.valiente, R.raw.furioso, R.raw.conjuro, R.raw.focus, R.raw.mentes, R.raw.terminator};
 
 
@@ -75,5 +86,32 @@ public class DetailActivity extends AppCompatActivity {
     public void reservar(View view) {
         DialogFragment dialog = new Dialogo();
         dialog.show(getSupportFragmentManager(), "dialog");
+    }
+
+    @Override
+    public void setTitle(String title) {
+        hora_reserva = title;
+    }
+
+    @Override
+    public void onPossitiveButtonClick() {
+        confirmo_reserva = true;
+
+        if(confirmo_reserva && hora_reserva!=null){
+            Toast.makeText(
+                    this,
+                    "Reservaste a las "+hora_reserva,
+                    Toast.LENGTH_LONG)
+                    .show();
+        }
+    }
+
+    @Override
+    public void onNegativeButtonClick() {
+        // Acciones
+    }
+
+    public boolean getConfirmo_reserva() {
+        return confirmo_reserva;
     }
 }
