@@ -64,19 +64,20 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
             @Override
             public void onClick(View v) {
                 // Do your stuff here
-
+                Toast toast = Toast.makeText(context, "Peli "+position, Toast.LENGTH_LONG);
+                toast.show();
                 //Cambiamos de actividad para ver detalles de la pelicula seleccionada
                 Intent intent = new Intent(context, DetailActivity.class);
 
                 intent.putExtra("identificador", position);
-                id = position;
-                intent.putExtra("name", pelicula.getNombre());
-                intent.putExtra("format", pelicula.getFormato());
-                intent.putExtra("duracion", pelicula.getDuracion());
-                intent.putExtra("tipo", pelicula.getGenero());
-                intent.putExtra("censura", pelicula.getCensura());
-                intent.putExtra("reparto", pelicula.getReparto());
-                intent.putExtra("sinopsis", pelicula.getSinopsis());
+
+                intent.putExtra("name", peliculas.get(position).getNombre());
+                intent.putExtra("format", peliculas.get(position).getFormato());
+                intent.putExtra("duracion", peliculas.get(position).getDuracion());
+                intent.putExtra("tipo", peliculas.get(position).getGenero());
+                intent.putExtra("censura", peliculas.get(position).getCensura());
+                intent.putExtra("reparto", peliculas.get(position).getReparto());
+                intent.putExtra("sinopsis", peliculas.get(position).getSinopsis());
                 peliculas.get(position).setEstado(true);//!!!!!!!!!!!!!BORRAR!!!!!!!!!!!!!!!!!
                 chequear_estado(position);
                 context.startActivity(intent);

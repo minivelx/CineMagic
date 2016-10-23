@@ -17,7 +17,7 @@ public class Fragment1 extends Fragment {
     ListView lista;
     List<Pelicula> peliculas;
     CustomAdapter2 adapter2;
-    LinearLayout linear;
+
 
     @Nullable
     @Override
