@@ -1,5 +1,6 @@
 package my.test.myapplication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -30,16 +31,19 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
     Pelicula pelicula;
     View view;
     List<Pelicula> peliculas;
+    private static final int REQUEST_CODE = 100;
 
     public CustomAdapter2(Context context,int textViewResourceId, List<Pelicula> objects) {
         super(context, textViewResourceId, objects);
         this.context = context;
         peliculas = objects;
+        Log.i("MainActivity", "Ejecutado-constructor---------------------------");
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
+        Log.i("MainActivity", "Ejecutado-----getView------------------------------");
         //View view = super.getView(position, convertView, parent);
         view = LayoutInflater.from(getContext()).inflate(R.layout.item_custom, null);
 
@@ -67,10 +71,12 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
                 Toast toast = Toast.makeText(context, "Peli "+position, Toast.LENGTH_LONG);
                 toast.show();
                 //Cambiamos de actividad para ver detalles de la pelicula seleccionada
+                //Intent intent = new Intent(context, DetailActivity.class);
                 Intent intent = new Intent(context, DetailActivity.class);
 
-                intent.putExtra("identificador", position);
 
+                intent.putExtra("identificador", position);
+                id = position;
                 intent.putExtra("name", peliculas.get(position).getNombre());
                 intent.putExtra("format", peliculas.get(position).getFormato());
                 intent.putExtra("duracion", peliculas.get(position).getDuracion());
@@ -78,10 +84,11 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
                 intent.putExtra("censura", peliculas.get(position).getCensura());
                 intent.putExtra("reparto", peliculas.get(position).getReparto());
                 intent.putExtra("sinopsis", peliculas.get(position).getSinopsis());
-                peliculas.get(position).setEstado(true);//!!!!!!!!!!!!!BORRAR!!!!!!!!!!!!!!!!!
-                chequear_estado(position);
-                context.startActivity(intent);
+                intent.putExtra("estado", peliculas.get(position).getEstado());
+                //peliculas.get(position).setEstado(true);//!!!!!!!!!!!!!BORRAR!!!!!!!!!!!!!!!!!
 
+                ((Activity) context).startActivityForResult(intent, REQUEST_CODE);
+                chequear_estado(position);
             }
         });
 
@@ -90,14 +97,29 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
 
     public void chequear_estado(int position){
 
-        //actualizamos la vista
-        this.notifyDataSetChanged();
-
         if(pelicula.getEstado()==true){
             Log.i("MainActivity", "yeahh!!!!!!!!");
             estado.setText("RESERVADO!");
         }else{
             estado.setText("SIN RESERVA");
+        }
+        //actualizamos la vista
+        this.notifyDataSetChanged();
+    }
+
+    public  void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("CustomAdapter2", "onActivityResult");
+
+        if(requestCode==REQUEST_CODE ){
+            boolean resp = data.getBooleanExtra("estado",false);
+            //Log.d("MainActivity",toString(resp));
+
+            if(resp){
+                Log.i("MainActivity", "reserva remitida satisfactoriamente");
+                peliculas.get(id).setEstado(true);
+                chequear_estado(id);
+            }
+
         }
     }
 

@@ -16,8 +16,8 @@ public class Fragment1 extends Fragment {
 
     ListView lista;
     List<Pelicula> peliculas;
-    CustomAdapter2 adapter2;
 
+    LinearLayout linear;
 
     @Nullable
     @Override
@@ -33,8 +33,8 @@ public class Fragment1 extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         peliculas = initPeliculasList();
-        adapter2 = new CustomAdapter2(getActivity(), android.R.id.list,peliculas);
-        lista.setAdapter(adapter2);
+        MainActivity.adapter2 = new CustomAdapter2(getActivity(), android.R.id.list,peliculas);
+        lista.setAdapter(MainActivity.adapter2);
 
     }
 

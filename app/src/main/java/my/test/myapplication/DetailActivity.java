@@ -1,5 +1,6 @@
 package my.test.myapplication;
 
+import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -65,7 +66,12 @@ public class DetailActivity extends AppCompatActivity implements
         sinopsis.setText(datos.getString("sinopsis"));
 
         peli=datos.getInt("identificador");
+        confirmo_reserva  = datos.getBoolean("estado");
         videoplay(peli);
+
+        Intent intent = new Intent();
+        intent.putExtra("estado", confirmo_reserva);
+        setResult(RESULT_OK, intent);
 
 
     }
@@ -103,7 +109,13 @@ public class DetailActivity extends AppCompatActivity implements
                     "Reservaste a las "+hora_reserva,
                     Toast.LENGTH_LONG)
                     .show();
+        }else {
+            confirmo_reserva=false;
         }
+        Intent intent = new Intent();
+        intent.putExtra("estado", confirmo_reserva);
+        setResult(RESULT_OK, intent);
+
     }
 
     @Override
@@ -112,6 +124,10 @@ public class DetailActivity extends AppCompatActivity implements
     }
 
     public boolean getConfirmo_reserva() {
+
+
         return confirmo_reserva;
     }
+
+
 }
