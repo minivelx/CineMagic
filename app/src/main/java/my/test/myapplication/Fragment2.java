@@ -6,14 +6,47 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
-/**
- * Created by filip on 8/21/2015.
- */
+import java.util.List;
+
 public class Fragment2 extends Fragment {
+
+    ListView lista2;
+    ArrayAdapter arrayAdapter;
+    final List<Reserva> reservas = CustomAdapter2.reservas;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return  inflater.inflate(R.layout.frag2,container,false);
+        View rootView = inflater.inflate(R.layout.frag2,container,false);
+
+        lista2 = (ListView) rootView.findViewById(R.id.lista2);
+        lista2.setAdapter(arrayAdapter);
+        return  rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_2, android.R.id.text1, reservas) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+
+                View view = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_2,parent);
+                TextView tittle = (TextView) view.findViewById(android.R.id.text1);
+                TextView subtittle = (TextView) view.findViewById(android.R.id.text2);
+
+                //Reserva r = (Reserva) getItem(position);
+
+                tittle.setText(reservas.get(position).getTitulo());
+                subtittle.setText(reservas.get(position).getTitulo());
+                return view;
+            }
+        };
+
+
     }
 }
