@@ -70,12 +70,40 @@ public class Fragment1 extends Fragment {
                 " venganza por la muerte de su hermano, lo que pone en peligro a todo el equipo. Al enterarse de la muerte de Han, la familia Rápidos y " +
                 "Furiosos se propone encontrar al hombre que mató a uno de los suyos, antes de que él los encuentre primero";
 
+        String r5 = "David Leslie Johnso, Chad Hayes, James Wan.";
+        String s5 = "Lorraine y Ed Warren, quienes, en una de sus más aterradoras investigaciones paranormales, viajan al norte de Londres para ayudar" +
+                " a una madre soltera con cuatro hijos que vive en una casa repleta de espíritus malignos.";
+
+        String r6 = "Will Smith, Margot Robbie, Rodrigo Santoro, Stephanie Honore.";
+        String s6 = "Un veterano estafador acoge a una atractiva joven bajo su protectorado, pero las cosas se complican cuando ambos comienzan un romance. " +
+                "Todo comienza cuando Nicky (Will Smith), un consumado maestro de la estafa, comienza un romance con Jess (Margot Robbie), una novata en el " +
+                "oficio. Mientras le enseña los trucos del oficio, ella desea estrechar demasiado los lazos con Nicky, y éste rompe de repente la relación. " +
+                "Tres años más tarde, la mujer que había encendido una llama en él, convertida en una mujer fatal, reaparece en Buenos Aires en un circuito " +
+                "de carreras en el que hay apuestas muy elevadas.";
+
+        String r7 = "Zach Galifianakis, Owen Wilson, Kristen Wiig.";
+        String s7 = "Esta comedia de acción basada en hechos reales, David Ghantt (Zach Galifianakis) descubre el verdadero sentido de la aventura mucho" +
+                " más allá de sus sueños más salvajes. Él es un hombre sin complicaciones, atrapado en una vida monótona. Cada día conduce un vehículo" +
+                " blindado, transportando millones de dólares de otras personas, sin perspectiva de mejora a la vista. El único atisbo de emoción es su" +
+                " amor platónico, Kelly Campbell (Kristen Wiig), su compañera de trabajo, quien pronto le cambiará los esquemas de su vida.";
+
+        String r8 = "Zach Galifianakis, Owen Wilson, Kristen Wiig.";
+        String s8 = "Año 2032. La guerra del futuro se está librando y un grupo de rebeldes humanos tiene el sistema de inteligencia artificial Skynet " +
+                "contra las cuerdas. John Connor (Jason Clarke) es el líder de la resistencia, y Kyle Reese (Jai Courtney) es su fiel soldado, criado en " +
+                "las ruinas de una postapocalíptica California. Para salvaguardar el futuro, Connor envía a Reese a 1984 para salvar a su madre, Sarah " +
+                "(Emilia Clarke) de un Terminator programado para matarla con el fin de que no llegue a dar a luz a John. Pero lo que Reese encuentra en " +
+                "el otro lado no es como él esperaba…";
         //formato Pelicula(String nombre, int puntuacion,int censura,int duracion, String director, String genero, String reparto, String sinopsis, int formato)
         peliculas.add(new Pelicula("Suicide Squared",95,12,123,"David Ayer","Acción",r1,s1,2));
         peliculas.add(new Pelicula("Transformers 4",100,12,180,"Michael Bay","Acción, Ciencia ficción",r2,s2,3));
         peliculas.add(new Pelicula("Indomable",75,0,90,"Mark Andrews","Aventura",r3,s3,2));
         peliculas.add(new Pelicula("Rapido&Furioso 7",85,15,138,"James Wan","Acción",r4,s4,3));
+        peliculas.add(new Pelicula("El Conjuro 2",65,18,134,"Carey Hayes","Terror",r5,s5,2));
+        //peliculas.add(new Pelicula("Focus",75,18,104,"Glenn Ficarra","Acción",r6,s6,2));
+        //peliculas.add(new Pelicula("Demente Maestra",35,12,94,"Jared Hess","Comedia, Acción",r7,s7,2));
+        //peliculas.add(new Pelicula("Terminator 4",95,16,126,"Alan Taylor ","Acción",r8,s8,3));
 
         return peliculas;
     }
+
 }

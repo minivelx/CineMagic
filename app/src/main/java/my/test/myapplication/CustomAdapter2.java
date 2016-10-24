@@ -72,8 +72,7 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
             @Override
             public void onClick(View v) {
                 // Do your stuff here
-                Toast toast = Toast.makeText(context, "Peli "+position, Toast.LENGTH_LONG);
-                toast.show();
+
                 //Cambiamos de actividad para ver detalles de la pelicula seleccionada
                 //Intent intent = new Intent(context, DetailActivity.class);
                 Intent intent = new Intent(context, DetailActivity.class);
@@ -102,7 +101,7 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
     public void chequear_estado(int position){
 
         if(pelicula.getEstado()==true){
-            Log.i("MainActivity", "yeahh!!!!!!!!");
+            //Log.i("MainActivity", "yeahh!!!!!!!!");
             estado.setText("RESERVADO!");
         }else{
             estado.setText("SIN RESERVA");
@@ -116,13 +115,14 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
 
         if(requestCode==REQUEST_CODE ){
             boolean resp = data.getBooleanExtra("estado",false);
+            String hora = data.getStringExtra("horario");
             //Log.d("MainActivity",toString(resp));
 
             if(resp){
-                Log.i("MainActivity", "reserva remitida satisfactoriamente");
+                //Log.i("MainActivity", "reserva remitida satisfactoriamente");
                 peliculas.get(id).setEstado(true);
                 chequear_estado(id);
-                Fragment2.reservas.add(new Reserva(peliculas.get(id).getNombre(), "Gran"));
+                Fragment2.reservas.add(new Reserva(peliculas.get(id).getNombre(), hora));
                 Fragment2.actualizar();
             }
 

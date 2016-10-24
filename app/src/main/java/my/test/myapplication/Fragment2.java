@@ -26,8 +26,7 @@ public class Fragment2 extends Fragment {
 
         lista2 = (ListView) rootView.findViewById(R.id.lista2);
         lista2.setAdapter(arrayAdapter);
-
-
+        //lista2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 
         arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_2, android.R.id.text1, reservas) {
             @Override
@@ -40,6 +39,7 @@ public class Fragment2 extends Fragment {
                 Reserva p = (Reserva) getItem(position);
 
                 tittle.setText(p.getTitulo());
+                tittle.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                 subtittle.setText(p.getHora());
 
 

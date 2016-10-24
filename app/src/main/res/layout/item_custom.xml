@@ -6,9 +6,10 @@
 
     <LinearLayout
         android:weightSum="12"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:orientation="horizontal"
@@ -125,7 +126,7 @@
                             android:layout_height="wrap_content"
                             android:text="VER MÁS"
                             android:textSize="18dp"
-                            android:textColor="@color/ColorAccent3"
+                            android:textColor="@color/ColorPrimaryDark2"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -153,7 +154,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="TICKETS:"
                                 android:textSize="18dp"
-                                android:textColor="@color/ColorAccent3"
+                                android:textColor="@color/ColorPrimaryDark2"
                                 android:textStyle="bold" />
 
                             <ImageView

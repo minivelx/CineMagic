@@ -113,6 +113,7 @@ public class DetailActivity extends AppCompatActivity implements
         }
         Intent intent = new Intent();
         intent.putExtra("estado", confirmo_reserva);
+        intent.putExtra("horario",hora_reserva);
         setResult(RESULT_OK, intent);
 
     }

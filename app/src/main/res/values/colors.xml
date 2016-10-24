@@ -1,9 +1,10 @@
 <resources>
-    <color name="colorPrimary">#ff5724</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#24baff</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#ffffff</color>
-    <color name="colorPrimary2">#ffffffff</color>
-    <color name="ColorPrimaryDark2">#D32F2F</color>
+    <color name="colorPrimary2">#000000</color>
+    <color name="ColorPrimaryDark2">#fd7505</color>
     <color name="ColorAccent2">#FFFFFF</color>
-    <color name="ColorAccent3">#ff5724</color>
+    <color name="ColorAccent4">#24baff</color>
+    <color name="ColorAccent3">#24c1ff</color>
 </resources>
