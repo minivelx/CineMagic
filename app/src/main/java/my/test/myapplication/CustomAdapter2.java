@@ -1,6 +1,7 @@
 package my.test.myapplication;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +33,7 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
     Pelicula pelicula;
     View view;
     List<Pelicula> peliculas;
+
     private static final int REQUEST_CODE = 100;
 
     public CustomAdapter2(Context context,int textViewResourceId, List<Pelicula> objects) {
@@ -38,6 +41,7 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
         this.context = context;
         peliculas = objects;
         Log.i("MainActivity", "Ejecutado-constructor---------------------------");
+
     }
 
     @Override
@@ -118,6 +122,8 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
                 Log.i("MainActivity", "reserva remitida satisfactoriamente");
                 peliculas.get(id).setEstado(true);
                 chequear_estado(id);
+                Fragment2.reservas.add(new Reserva(peliculas.get(id).getNombre(), "Gran"));
+                Fragment2.actualizar();
             }
 
         }

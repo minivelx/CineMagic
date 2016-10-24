@@ -17,8 +17,6 @@ public class Fragment1 extends Fragment {
     ListView lista;
     List<Pelicula> peliculas;
 
-    LinearLayout linear;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
