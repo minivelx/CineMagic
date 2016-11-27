@@ -1,5 +1,7 @@
 package my.test.myapplication;
 
+import java.util.ArrayList;
+
 /**
  * Created by miguel on 2/10/16.
  */
@@ -44,6 +46,7 @@ public class Pelicula {
     private String reparto;
     private boolean estado;
     private String linkImg;
+    public ArrayList hora = new ArrayList();
 
     //getters
     public String getNombre() {
@@ -90,6 +93,10 @@ public class Pelicula {
         return linkImg;
     }
 
+    public ArrayList getHora() {
+        return hora;
+    }
+
     //setters
 
     public void setNombre(String nombre) {
@@ -134,5 +141,9 @@ public class Pelicula {
 
     public void setLinkImg(String linkImg) {
         this.linkImg = linkImg;
+    }
+
+    public void setHora(ArrayList hora) {
+        this.hora = hora;
     }
 }

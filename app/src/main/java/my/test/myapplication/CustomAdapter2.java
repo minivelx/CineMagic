@@ -69,6 +69,7 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
         nombre.setText(String.valueOf(pelicula.getNombre()));
         director.setText(String.valueOf(pelicula.getDirector()));
         estrellas.setProgress(pelicula.getPuntuacion() / 10);
+        //estrellas.isIndicator();
         //photo.setImageResource(image_src[position]);
         photo.setImageUrl(peliculas.get(position).getLinkImg());
 
@@ -94,6 +95,7 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
                 intent.putExtra("reparto", peliculas.get(position).getReparto());
                 intent.putExtra("sinopsis", peliculas.get(position).getSinopsis());
                 intent.putExtra("estado", peliculas.get(position).getEstado());
+                intent.putExtra("horarios", peliculas.get(position).getHora());
                 //peliculas.get(position).setEstado(true);//!!!!!!!!!!!!!BORRAR!!!!!!!!!!!!!!!!!
 
                 ((Activity) context).startActivityForResult(intent, REQUEST_CODE);
@@ -116,6 +118,7 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
         this.notifyDataSetChanged();
     }
 
+    //Se encarga de llenar las reservas para el list view del fragmen2
     public  void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("CustomAdapter2", "onActivityResult");
 
@@ -123,6 +126,7 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
             boolean resp = data.getBooleanExtra("estado",false);
             String hora = data.getStringExtra("horario");
             //Log.d("MainActivity",toString(resp));
+
 
             if(resp){
                 //Log.i("MainActivity", "reserva remitida satisfactoriamente");

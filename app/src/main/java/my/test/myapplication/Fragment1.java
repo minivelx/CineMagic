@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,7 +20,6 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.Header;
-
 
 
 public class Fragment1 extends Fragment {
@@ -56,7 +56,7 @@ public class Fragment1 extends Fragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if(statusCode==200){
-                    progressDialog.dismiss();
+                    //progressDialog.dismiss();
                     try {
                         JSONArray jsonArray = new JSONArray(new String(responseBody));
                         peliculas = new ArrayList<>();
@@ -75,7 +75,43 @@ public class Fragment1 extends Fragment {
                                     jsonArray.getJSONObject(i).getString("LinkImagen")
                             ));
                         }
-                        Log.i("Gragment1","creando adapter2");
+                        //Log.i("Gragment1","creando adapter2");
+                        //MainActivity.adapter2 = new CustomAdapter2(getActivity(), android.R.id.list,peliculas);
+                        //lista.setAdapter(MainActivity.adapter2);
+
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+
+        //realizo la consulta de horarios
+        url = "https://webservices-minivelx.c9users.io/horario.php";
+        RequestParams parametros = new RequestParams();
+        //parametros.put("ID",DetailActivity.peli+1);
+
+        client.get(url, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if(statusCode==200){
+                    //progressDialog.dismiss();
+                    try {
+                        JSONArray jsonArray = new JSONArray(new String(responseBody));
+
+                        for (int i=0;i<jsonArray.length();i++){
+                            //Pelicula(String nombre, int puntuacion,int censura,int duracion, String director, String genero, String reparto, String sinopsis, int formato)
+                            int position = jsonArray.getJSONObject(i).getInt("ID")-1;
+                            peliculas.get(position).hora.add(jsonArray.getJSONObject(i).getString("Hora"));
+                            //Log.i("la pelicula"+position,"tiene Horario de "+jsonArray.getJSONObject(i).getString("Hora"));
+                        }
+                        //Log.i("Fragment1","creando adapter2");
                         MainActivity.adapter2 = new CustomAdapter2(getActivity(), android.R.id.list,peliculas);
                         lista.setAdapter(MainActivity.adapter2);
 
@@ -92,7 +128,43 @@ public class Fragment1 extends Fragment {
             }
         });
 
+
+        //reviso si hay reservas existentes previamente
+        url = "https://webservices-minivelx.c9users.io/consultar.php";
+
+        client.get(url, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if(statusCode==200){
+                    progressDialog.dismiss();
+                    try {
+                        JSONArray jsonArray = new JSONArray(new String(responseBody));
+
+                        for (int i=0;i<jsonArray.length();i++){
+                            //Pelicula(String nombre, int puntuacion,int censura,int duracion, String director, String genero, String reparto, String sinopsis, int formato)
+                            int position = jsonArray.getJSONObject(i).getInt("ID")-1;
+                            Fragment2.reservas.add(new Reserva(peliculas.get(position).getNombre(), jsonArray.getJSONObject(i).getString("Hora")));
+                            peliculas.get(position).setEstado(true);
+                            Fragment2.actualizar();
+                            //Log.i("tposicion ",peliculas.get(position).getNombre());
+
+                        }
+                        //Log.i("Gragment1","creando adapter2");
+                        //MainActivity.adapter2 = new CustomAdapter2(getActivity(), android.R.id.list,peliculas);
+                        //lista.setAdapter(MainActivity.adapter2);
+
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+
     }
-
-
 }

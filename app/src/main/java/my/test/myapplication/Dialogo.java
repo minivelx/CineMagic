@@ -8,9 +8,19 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+
 public class Dialogo extends DialogFragment {
 
-    int []num_funciones = {2,3,1,4,2,2,2,3};
+    //int []num_funciones = {2,3,1,4,2,0,0,0};
 
     //Interfaces
     public interface OnSetTitleListener{
@@ -26,57 +36,16 @@ public class Dialogo extends DialogFragment {
     // Interfaz de comunicación 2
     OnSimpleDialogListener listener2;
 
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        final CharSequence[] items = new CharSequence[num_funciones[DetailActivity.peli]];
+        int size = DetailActivity.losHorarios.size();
+        final CharSequence[] items = new CharSequence[size];
 
-        switch (DetailActivity.peli){
-            case 0:
-                items[0] = "12:30 PM";
-                items[1] = "3:00 PM";
-                break;
-
-            case 1:
-                items[0] = "2:40 PM";
-                items[1] = "5:00 PM";
-                items[2] = "7:30 PM";
-                break;
-
-            case 2:
-                items[0] = "3:50 PM";
-                break;
-
-            case 3:
-                items[0] = "2:30 PM";
-                items[1] = "5:00 PM";
-                items[2] = "7:30 PM";
-                items[3] = "9:30 PM";
-                break;
-
-
-            case 4:
-                items[0] = "8:30 PM";
-                items[1] = "9:50 PM";
-                break;
-
-            case 5:
-                items[0] = "5:30 PM";
-                items[1] = "9:00 PM";
-                break;
-
-            case 6:
-                items[0] = "2:30 PM";
-                items[1] = "3:40 PM";
-                break;
-
-            case 7:
-                items[0] = "5:10 PM";
-                items[1] = "6:50 PM";
-                items[1] = "8:20 PM";
-                break;
-
-            default:break;
+        //se llena el vector con los horarios
+        for(int i=0; i<size;i++){
+            items[i] = DetailActivity.losHorarios.get(i).toString();
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

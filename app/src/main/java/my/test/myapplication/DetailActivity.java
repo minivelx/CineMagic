@@ -6,19 +6,32 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+
 public class DetailActivity extends AppCompatActivity implements
         Dialogo.OnSetTitleListener,
         Dialogo.OnSimpleDialogListener {
 
     static int peli;
+    static ArrayList losHorarios;
     String hora_reserva;
     boolean confirmo_reserva;
+
 
     public DetailActivity() {
         this.hora_reserva = null;
@@ -65,6 +78,10 @@ public class DetailActivity extends AppCompatActivity implements
         sinopsis.setText(datos.getString("sinopsis"));
 
         peli=datos.getInt("identificador");
+        losHorarios = datos.getCharSequenceArrayList("horarios");
+        for(int i=0;i<losHorarios.size();i++){
+            Log.i("Horario",losHorarios.get(i).toString());
+        }
         confirmo_reserva  = datos.getBoolean("estado");
         videoplay(peli);
 
@@ -79,9 +96,15 @@ public class DetailActivity extends AppCompatActivity implements
 
         String videopath = "android.resource://my.test.myapplication/"+ R.raw.furioso;
 
-        Uri uri = Uri.parse("android.resource://my.test.myapplication/"+video_src[id]);
-        videoView.setVideoURI(uri);
+        //Uri uri = Uri.parse("android.resource://my.test.myapplication/"+video_src[id]);
+        //Uri uri = Uri.parse("http://www.youtube.com/watch?v=1FJHYqE0RDg");
+        //Uri uri = Uri.parse("rtsp://r7---sn-4g57kue6.googlevideo.com/Ck0LENy73wIaRAmk3cJBg-iaXhMYDSANFC3u0pRWMOCoAUIJbXYtZ29vZ2xlSARSBXdhdGNoYIaluaTkzciOVooBCzVxRjNraG5XcXdnDA==/D693A8E7577C3A29E60C292B42C9C87D7C25A565.762A63DC4CA0A028DA83256C6A79E5F160CBEDA3/yt6/1/video.3gp");
+
+        videoView.setVideoPath("http://www.ebookfrenzy.com/android_book/movie.mp4");
+        //videoView.setVideoPath("http://www.youtube.com/watch?v=ragluX5mBzM");
         videoView.setMediaController(mediaController);
+        //videoView.setVideoURI(uri);
+        videoView.requestFocus();
         mediaController.setAnchorView(findViewById(R.id.videoview));
 
         videoView.start();
@@ -103,11 +126,9 @@ public class DetailActivity extends AppCompatActivity implements
         confirmo_reserva = true;
 
         if(confirmo_reserva && hora_reserva!=null){
-            Toast.makeText(
-                    this,
-                    "Reservaste a las "+hora_reserva,
-                    Toast.LENGTH_LONG)
-                    .show();
+            //reservo en la DB
+            reservar(hora_reserva);
+
         }else {
             confirmo_reserva=false;
         }
@@ -124,10 +145,36 @@ public class DetailActivity extends AppCompatActivity implements
     }
 
     public boolean getConfirmo_reserva() {
-
-
         return confirmo_reserva;
     }
 
 
+
+    public void reservar(final String hora_reservar){
+
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        String url = "https://webservices-minivelx.c9users.io/reserva.php";
+        RequestParams parametros = new RequestParams();
+        parametros.put("ID",peli+1);
+        parametros.put("Hora",hora_reservar);
+
+        client.post(url,parametros, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Log.i("status",String.valueOf(statusCode));
+                if(statusCode==200){
+                    Toast.makeText(getApplicationContext(),"Reserva lista a las "+hora_reservar,Toast.LENGTH_LONG).show();
+
+                }else{
+                    Toast.makeText(getApplicationContext(),"Problemas con la conexión :(",Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+    }
 }

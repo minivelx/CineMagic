@@ -84,6 +84,7 @@
                     <RatingBar
                         android:id="@+id/estrellas"
                         style="@style/CustomRating"
+                        android:isIndicator="true"
                         android:numStars="5"
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
