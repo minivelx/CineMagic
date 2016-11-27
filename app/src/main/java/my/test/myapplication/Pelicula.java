@@ -19,7 +19,8 @@ public class Pelicula {
        estado = false;
     }
 
-    public Pelicula(String nombre, int puntuacion,int censura,int duracion, String director, String genero, String reparto, String sinopsis, int formato) {
+    public Pelicula(String nombre, int puntuacion,int censura,int duracion, String director, String genero,
+                    String reparto, String sinopsis, int formato, String linkImg) {
         this.nombre = nombre;
         this.puntuacion = puntuacion;
         this.director = director;
@@ -29,6 +30,7 @@ public class Pelicula {
         this.sinopsis = sinopsis;
         this.reparto = reparto;
         this.formato = formato;
+        this.linkImg=linkImg;
     }
 
     private String nombre;
@@ -41,6 +43,7 @@ public class Pelicula {
     private String director;
     private String reparto;
     private boolean estado;
+    private String linkImg;
 
     //getters
     public String getNombre() {
@@ -83,6 +86,10 @@ public class Pelicula {
         return estado;
     }
 
+    public String getLinkImg() {
+        return linkImg;
+    }
+
     //setters
 
     public void setNombre(String nombre) {
@@ -123,5 +130,9 @@ public class Pelicula {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public void setLinkImg(String linkImg) {
+        this.linkImg = linkImg;
     }
 }
