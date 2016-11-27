@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +75,7 @@ public class Fragment1 extends Fragment {
                                     jsonArray.getJSONObject(i).getString("LinkImagen")
                             ));
                         }
-
+                        Log.i("Gragment1","creando adapter2");
                         MainActivity.adapter2 = new CustomAdapter2(getActivity(), android.R.id.list,peliculas);
                         lista.setAdapter(MainActivity.adapter2);
 

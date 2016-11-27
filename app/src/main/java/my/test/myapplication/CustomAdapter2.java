@@ -15,6 +15,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.image.SmartImageView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,13 +28,15 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
 
     static int id;
 
-    private int[] image_src = {R.drawable.peli1,R.drawable.peli2,R.drawable.peli3,R.drawable.peli4, R.drawable.peli5};
     Context context;
     LinearLayout linearLayout;
     TextView estado;
     Pelicula pelicula;
     View view;
     List<Pelicula> peliculas;
+    TextView nombre, director;
+    RatingBar estrellas;
+    SmartImageView photo;
 
     private static final int REQUEST_CODE = 100;
 
@@ -51,10 +55,11 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
         //View view = super.getView(position, convertView, parent);
         view = LayoutInflater.from(getContext()).inflate(R.layout.item_custom, null);
 
-        TextView nombre = (TextView) view.findViewById(R.id.titulo);
-        TextView director = (TextView) view.findViewById(R.id.director);
-        RatingBar estrellas = (RatingBar) view.findViewById(R.id.estrellas);
-        ImageView photo = (ImageView) view.findViewById(R.id.poster);
+        nombre = (TextView) view.findViewById(R.id.titulo);
+        director = (TextView) view.findViewById(R.id.director);
+        estrellas = (RatingBar) view.findViewById(R.id.estrellas);
+        //ImageView photo = (ImageView) view.findViewById(R.id.poster);
+        photo = (SmartImageView) view.findViewById(R.id.poster);
         estado = (TextView) view.findViewById(R.id.estado);
         linearLayout = (LinearLayout) view.findViewById(R.id.detalles);
 
@@ -63,8 +68,9 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
 
         nombre.setText(String.valueOf(pelicula.getNombre()));
         director.setText(String.valueOf(pelicula.getDirector()));
-        estrellas.setProgress(pelicula.getPuntuacion()/10);
-        photo.setImageResource(image_src[position]);
+        estrellas.setProgress(pelicula.getPuntuacion() / 10);
+        //photo.setImageResource(image_src[position]);
+        photo.setImageUrl(peliculas.get(position).getLinkImg());
 
         chequear_estado(position);
 
