@@ -129,7 +129,7 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
             //Log.d("MainActivity",toString(resp));
 
 
-            if(resp){
+            if(resp && hora!=null){
                 Log.i("MainActivity", "reserva remitida satisfactoriamente");
                 peliculas.get(id).setEstado(true);
                 chequear_estado(id);

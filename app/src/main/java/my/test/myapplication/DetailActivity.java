@@ -95,7 +95,6 @@ public class DetailActivity extends AppCompatActivity implements
 
     public void videoplay(int id){
 
-        String videopath = "android.resource://my.test.myapplication/"+ R.raw.furioso;
 
         //Uri uri = Uri.parse("android.resource://my.test.myapplication/"+video_src[id]);
         //Uri uri = Uri.parse("http://www.youtube.com/watch?v=1FJHYqE0RDg");
@@ -124,7 +123,7 @@ public class DetailActivity extends AppCompatActivity implements
 
     @Override
     public void onPossitiveButtonClick() {
-        confirmo_reserva = false;
+        confirmo_reserva = true;
 
         if(confirmo_reserva && hora_reserva!=null){
             //reservo en la DB
@@ -133,7 +132,10 @@ public class DetailActivity extends AppCompatActivity implements
         }else {
             confirmo_reserva=false;
         }
-
+        Intent intent = new Intent();
+        intent.putExtra("estado", confirmo_reserva);
+        intent.putExtra("horario",hora_reserva);
+        setResult(RESULT_OK, intent);
 
     }
 
@@ -168,10 +170,7 @@ public class DetailActivity extends AppCompatActivity implements
                 }else{
                     Toast.makeText(getApplicationContext(),"Problemas con la conexión :(",Toast.LENGTH_LONG).show();
                 }
-                Intent intent = new Intent();
-                intent.putExtra("estado", confirmo_reserva);
-                intent.putExtra("horario",hora_reserva);
-                setResult(RESULT_OK, intent);
+
             }
 
             @Override
