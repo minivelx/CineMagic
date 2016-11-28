@@ -96,6 +96,7 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
                 intent.putExtra("sinopsis", peliculas.get(position).getSinopsis());
                 intent.putExtra("estado", peliculas.get(position).getEstado());
                 intent.putExtra("horarios", peliculas.get(position).getHora());
+                intent.putExtra("link", peliculas.get(position).getLinkVideo());
                 //peliculas.get(position).setEstado(true);//!!!!!!!!!!!!!BORRAR!!!!!!!!!!!!!!!!!
 
                 ((Activity) context).startActivityForResult(intent, REQUEST_CODE);
@@ -129,7 +130,7 @@ public class CustomAdapter2 extends ArrayAdapter<Pelicula> {
 
 
             if(resp){
-                //Log.i("MainActivity", "reserva remitida satisfactoriamente");
+                Log.i("MainActivity", "reserva remitida satisfactoriamente");
                 peliculas.get(id).setEstado(true);
                 chequear_estado(id);
                 Fragment2.reservas.add(new Reserva(peliculas.get(id).getNombre(), hora));

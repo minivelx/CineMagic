@@ -28,6 +28,7 @@ public class DetailActivity extends AppCompatActivity implements
         Dialogo.OnSimpleDialogListener {
 
     static int peli;
+    String link;
     static ArrayList losHorarios;
     String hora_reserva;
     boolean confirmo_reserva;
@@ -38,8 +39,6 @@ public class DetailActivity extends AppCompatActivity implements
         confirmo_reserva = false;
     }
 
-    private int[] video_src = {R.raw.suicida, R.raw.transformers, R.raw.valiente, R.raw.furioso, R.raw.conjuro, R.raw.focus, R.raw.mentes, R.raw.terminator};
-
 
     VideoView videoView;
     MediaController mediaController;
@@ -49,6 +48,7 @@ public class DetailActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        confirmo_reserva = false;
         videoView  = (VideoView) findViewById(R.id.videoview);
         mediaController = new MediaController(this);
 
@@ -78,6 +78,7 @@ public class DetailActivity extends AppCompatActivity implements
         sinopsis.setText(datos.getString("sinopsis"));
 
         peli=datos.getInt("identificador");
+        link = datos.getString("link");
         losHorarios = datos.getCharSequenceArrayList("horarios");
         for(int i=0;i<losHorarios.size();i++){
             Log.i("Horario",losHorarios.get(i).toString());
@@ -100,7 +101,7 @@ public class DetailActivity extends AppCompatActivity implements
         //Uri uri = Uri.parse("http://www.youtube.com/watch?v=1FJHYqE0RDg");
         //Uri uri = Uri.parse("rtsp://r7---sn-4g57kue6.googlevideo.com/Ck0LENy73wIaRAmk3cJBg-iaXhMYDSANFC3u0pRWMOCoAUIJbXYtZ29vZ2xlSARSBXdhdGNoYIaluaTkzciOVooBCzVxRjNraG5XcXdnDA==/D693A8E7577C3A29E60C292B42C9C87D7C25A565.762A63DC4CA0A028DA83256C6A79E5F160CBEDA3/yt6/1/video.3gp");
 
-        videoView.setVideoPath("http://www.ebookfrenzy.com/android_book/movie.mp4");
+        videoView.setVideoPath(link);
         //videoView.setVideoPath("http://www.youtube.com/watch?v=ragluX5mBzM");
         videoView.setMediaController(mediaController);
         //videoView.setVideoURI(uri);
@@ -123,7 +124,7 @@ public class DetailActivity extends AppCompatActivity implements
 
     @Override
     public void onPossitiveButtonClick() {
-        confirmo_reserva = true;
+        confirmo_reserva = false;
 
         if(confirmo_reserva && hora_reserva!=null){
             //reservo en la DB
@@ -132,10 +133,7 @@ public class DetailActivity extends AppCompatActivity implements
         }else {
             confirmo_reserva=false;
         }
-        Intent intent = new Intent();
-        intent.putExtra("estado", confirmo_reserva);
-        intent.putExtra("horario",hora_reserva);
-        setResult(RESULT_OK, intent);
+
 
     }
 
@@ -165,10 +163,15 @@ public class DetailActivity extends AppCompatActivity implements
                 Log.i("status",String.valueOf(statusCode));
                 if(statusCode==200){
                     Toast.makeText(getApplicationContext(),"Reserva lista a las "+hora_reservar,Toast.LENGTH_LONG).show();
+                    confirmo_reserva=true;
 
                 }else{
                     Toast.makeText(getApplicationContext(),"Problemas con la conexión :(",Toast.LENGTH_LONG).show();
                 }
+                Intent intent = new Intent();
+                intent.putExtra("estado", confirmo_reserva);
+                intent.putExtra("horario",hora_reserva);
+                setResult(RESULT_OK, intent);
             }
 
             @Override

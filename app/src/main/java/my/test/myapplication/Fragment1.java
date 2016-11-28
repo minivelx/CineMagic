@@ -72,7 +72,8 @@ public class Fragment1 extends Fragment {
                                     jsonArray.getJSONObject(i).getString("Reparto"),
                                     jsonArray.getJSONObject(i).getString("Sinopsis"),
                                     jsonArray.getJSONObject(i).getInt("Formato"),
-                                    jsonArray.getJSONObject(i).getString("LinkImagen")
+                                    jsonArray.getJSONObject(i).getString("LinkImagen"),
+                                    jsonArray.getJSONObject(i).getString("LinkVideo")
                             ));
                         }
                         //Log.i("Gragment1","creando adapter2");

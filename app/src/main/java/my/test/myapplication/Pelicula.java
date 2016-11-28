@@ -22,7 +22,7 @@ public class Pelicula {
     }
 
     public Pelicula(String nombre, int puntuacion,int censura,int duracion, String director, String genero,
-                    String reparto, String sinopsis, int formato, String linkImg) {
+                    String reparto, String sinopsis, int formato, String linkImg, String linkVideo) {
         this.nombre = nombre;
         this.puntuacion = puntuacion;
         this.director = director;
@@ -33,6 +33,7 @@ public class Pelicula {
         this.reparto = reparto;
         this.formato = formato;
         this.linkImg=linkImg;
+        this.linkVideo=linkVideo;
     }
 
     private String nombre;
@@ -46,6 +47,7 @@ public class Pelicula {
     private String reparto;
     private boolean estado;
     private String linkImg;
+    private String linkVideo;
     public ArrayList hora = new ArrayList();
 
     //getters
@@ -145,5 +147,9 @@ public class Pelicula {
 
     public void setHora(ArrayList hora) {
         this.hora = hora;
+    }
+
+    public String getLinkVideo() {
+        return linkVideo;
     }
 }
